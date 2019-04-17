@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <script type="text/javascript" src="xhr.js"></script>
+    <script type="text/javascript" src="simpleajax.js"> </script>
+    <!-- Custom styles for this template -->
+</head>
+
+    
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+        <IMG SRC = "logo.png" width = 50px> </IMG>
+        <a class="navbar-brand" href="booking.html">Cabs Online</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="booking.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin.html">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+
+        <div class="landing">
+            <h1 id = "landingHeader">Welcome to Cabs Online</h1>
+            <p id = "landingParagraph"class="lead">Please fill out the form below to make a booking with us!</p>
+        </div>
+        <div id="form-container">
+                <form method="post" onsubmit = "insertBooking('data.php', getName.value, email.value,  phone.value, pickup.value, destination.value, date.value, time.value); return false;">
+                        <div class="form-group">
+                            <input type="text" class="form-control px-3" name="getName"  placeholder="Name" required="" id="name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control px-3" name="email"  placeholder="Email" required="" id="email">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control px-3" name="phone"  placeholder="Phone" required="" id="phone">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="form-control px-3" id="pickup" placeholder="Enter your Pickup address" required onFocus="geolocate()" >
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="form-control px-3" id="destination" placeholder="Enter your Destination address" required onFocus="geolocate()" >
+                        </div>
+                        <div class="form-group">
+                            <input type="date" class="form-control px-3" name="date"  required="" id="date">
+                        </div>
+                        <div class="form-group">
+                            <input type="time" class="form-control px-3" name="time"  required="" id="time">
+                        </div>
+                    <span class="input-group-btn"><button type="submit" class="btn btn-secondary btn-form display-4">Make Booking</button></span>
+                </form>
+         </div>
+        <div id = displayInfo></div>
+    </main>
+    <!-- /.container -->
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        var d = new Date();
+        document.getElementById('date').valueAsDate = d;
+        var currentTime = d.getHours() + ':' + d.getMinutes();
+        document.getElementById('time').value = currentTime;
+        function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+          
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('pickup')),
+            {types: ['geocode']});
+        autocomplete1 = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('destination')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+      }
+
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnzhHHmkAs-0OeK-jqOTXqSZCQOoSc7I4&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+
+</body>
+</html>
